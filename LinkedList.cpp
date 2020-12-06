@@ -11,6 +11,7 @@ void delete_at_begin(struct node *newnode,struct node *head,struct node *temp,in
 void delete_at_end(struct node *newnode,struct node *head,struct node *temp,int n);
 void delete_at_position(struct node *newnode,struct node *head,struct node *temp,int n);
 void count_length(struct node *newnode,struct node *head,struct node *temp,int n);
+void reverse_ll(struct node *newnode,struct node *head,struct node *curr,int n);
 
 
 struct node
@@ -184,6 +185,25 @@ void count_length(struct node *newnode,struct node *head,struct node *temp,int n
         cout<<"\nTHE TOTAL LENGTH OF THE LINKED LIST IS "<<count_len;
     }
 
+ void reverse_ll(struct node *newnode,struct node *head,struct node *curr,int n)
+    {
+        struct node*prev,*forv;
+        prev=NULL;
+        forv=curr=head;
+        while(forv!=NULL)
+        {
+            forv=forv->next;
+            curr->next=prev;
+            prev=curr;
+            curr=forv;
+        }
+
+        head=prev;
+
+        print_LL(head,curr,n);
+
+    }
+
 
 int main()
 {
@@ -201,8 +221,8 @@ int main()
     cout<<"\n 4 INSERT AFTER POSITION";
     cout<<"\n 5 DELETE AT BEGINNING";
     cout<<"\n 6 DELETE AT END";
-    cout<<"\n 7 DELETE BEFORE POSITION";
-    cout<<"\n 8 PRESS FOR EXIT";
+    cout<<"\n 7 DELETE AT POSITION";
+
 
     cout<<"\nENTER YOUR CHOICE : ";
     cin>>choice;
@@ -216,26 +236,32 @@ int main()
 
         case 2:
             insert_at_end(newnode,head,temp,n);
+            n++;
             break;
 
         case 3:
             insert_before_position(newnode,head,temp,n);
+            n++;
             break;
 
         case 4:
             insert_after_position(newnode,head,temp,n);
+            n++;
             break;
 
         case 5:
             delete_at_begin(newnode,head,temp,n);
+            n--;
             break;
 
         case 6:
             delete_at_end(newnode,head,temp,n);
+            n--;
             break;
 
          case 7:
             delete_at_position(newnode,head,temp,n);
+            n--;
             break;
 
 
@@ -244,9 +270,8 @@ int main()
 
         }
 
-
     count_length(newnode,head,temp,n);
+    reverse_ll(newnode,head,temp,n);
 
-
-    return 0;
+   return 0;
 }
